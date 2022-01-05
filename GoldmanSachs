@@ -1,0 +1,62 @@
+Q 13 . Decode the String
+class Solution{
+    
+    static String decodeHelper(String s,int indx)
+    {
+        if(indx==s.length()||s.charAt(indx)==']') return "";
+        
+        if(s.charAt(indx)>='0' && s.charAt(indx)<='9')
+        {
+            long num = s.charAt(indx)-'0';
+            
+            int i1 = indx+1;
+            
+            while(s.charAt(i1)>='0' && s.charAt(i1)<='9')
+            {
+                num*=10;
+                num+=(s.charAt(i1)-'0');
+                indx++;
+                i1++;
+            }
+            String s1 = decodeHelper(s,indx+2);
+            String temp = s1;
+            num--;
+            while(num-->0)
+            {
+                s1+=temp;
+            }
+            
+            int bc = 1;
+            int indx2 = s.length();
+            for(int i = indx+2;i<s.length();++i)
+            {
+                if(s.charAt(i)=='[') bc++;
+                else if(s.charAt(i)==']') bc--;
+                
+                if(bc==0)
+                {
+                    indx2 = i+1;
+                    break;
+                }
+            }
+            
+            String s2 = decodeHelper(s,indx2);
+            
+            return s1 + s2;
+        }
+        
+        return s.charAt(indx)+decodeHelper(s,indx+1);
+    }
+    
+    static String decodedString(String s){
+        // code here
+        
+        
+        String ans = "";
+        
+        ans = decodeHelper(s,0);
+        
+        return ans;
+        
+    }
+}
