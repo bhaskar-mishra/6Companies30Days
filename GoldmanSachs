@@ -1,3 +1,43 @@
+Q 1. Given an array of Strings, return all groups of strings that are anagrams
+
+class Solution {
+    public List<List<String>> Anagrams(String[] string_list) {
+        // Code here
+        
+        List<List<String>> ans = new ArrayList<>();
+        HashMap<String,Integer> map = new HashMap<>();
+        
+        int indx = 0;
+        
+        for(int i = 0;i<string_list.length;++i)
+        {
+            String temp = string_list[i];
+            char[] arr = temp.toCharArray();
+            Arrays.sort(arr);
+            String temp2 = String.valueOf(arr);
+            if(map.getOrDefault(temp2,-1)==-1)
+            {
+                List<String> list = new ArrayList<>();
+                list.add(string_list[i]);
+                map.put(temp2,indx);
+                indx++;
+                ans.add(list);
+            }else
+            {
+                int temp_indx = map.get(temp2);
+                ans.get(temp_indx).add(string_list[i]);
+                
+            }
+        }
+        
+        return ans;
+        
+    }
+}
+
+
+
+
 Q 13 . Decode the String
 class Solution{
     
